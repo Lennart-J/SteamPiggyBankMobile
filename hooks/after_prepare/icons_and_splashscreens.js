@@ -20,7 +20,7 @@ var Orchestrator = require('orchestrator');
 
 var BASES = {
   android: 'res',
-  ios: 'Spb/Resources'
+  ios: 'SteamPiggyBank/Resources'
 };
 var RESOURCE_DIR = 'resources';
 

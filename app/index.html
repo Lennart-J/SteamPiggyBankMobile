@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>"Spb"</title>
+    <title>SteamPiggyBank</title>
 
     <!-- build:css styles/vendor.css -->
     <!-- <link rel="stylesheet" href="vendor/some.contrib.css"> -->
@@ -17,20 +17,12 @@
     <!-- endbuild -->
   </head>
 
-  <body ng-app="Spb" animation="slide-left-right-ios7">
-    <!--
-      The nav bar that will be updated as we navigate between views.
-    -->
-    <ion-nav-bar class="bar-stable nav-title-slide-ios7">
-      <ion-nav-back-button class="button-icon icon ion-ios7-arrow-back">
-        Back
+  <body ng-app="SteamPiggyBank">
+    <ion-nav-bar class="nav-title-slide-ios7 bar-light">
+      <ion-nav-back-button class="button-icon ion-arrow-left-c">
       </ion-nav-back-button>
     </ion-nav-bar>
-    <!--
-      The views will be rendered in the <ion-nav-view> directive below
-      Templates are in the /templates folder (but you could also
-      have templates inline in this html file if you'd like).
-    -->
+
     <ion-nav-view></ion-nav-view>
 
     <!-- build:js scripts/vendor.js -->
@@ -53,6 +45,7 @@
         <!-- build:js scripts/scripts.js -->
         <script src="scripts/config.js"></script>
         <script src="scripts/app.js"></script>
+        <script src="scripts/config.js"></script>
         <script src="scripts/controllers.js"></script>
         <script src="scripts/services.js"></script>
         <!-- endbuild -->

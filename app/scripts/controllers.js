@@ -1,16 +1,29 @@
 'use strict';
-angular.module('Spb.controllers', [])
+angular.module('SteamPiggyBank.controllers', [])
 
-.controller('DashCtrl', function($scope) {
+.controller('IntroCtrl', function($scope, $state, $ionicSlideBoxDelegate) {
+ 
+  // Called to navigate to the main app
+  $scope.startApp = function() {
+    $state.go('main');
+  };
+  $scope.next = function() {
+    $ionicSlideBoxDelegate.next();
+  };
+  $scope.previous = function() {
+    $ionicSlideBoxDelegate.previous();
+  };
+
+  // Called each time the slide changes
+  $scope.slideChanged = function(index) {
+    $scope.slideIndex = index;
+  };
 })
 
-.controller('FriendsCtrl', function($scope, Friends) {
-  $scope.friends = Friends.all();
-})
-
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-  $scope.friend = Friends.get($stateParams.friendId);
-})
-
-.controller('AccountCtrl', function($scope) {
+.controller('MainCtrl', function($scope, $state) {
+  console.log('MainCtrl');
+  
+  $scope.toIntro = function(){
+    $state.go('intro');
+  }
 });
