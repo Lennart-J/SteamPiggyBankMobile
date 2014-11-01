@@ -1,58 +1,70 @@
 <ion-view title="">
-  <ion-nav-buttons side="left">
+  <ion-nav-buttons side="right">
     <button class="button button-positive button-clear no-animation"
-      ng-click="startApp()" ng-if="!slideIndex">
-      Skip Intro
+      ng-click="openPopover($event)">
+      Popover
     </button>
-    <button class="button button-positive button-clear no-animation"
-      ng-click="previous()" ng-if="slideIndex > 0">
-      Previous Slide
-    </button>
+
+    
   </ion-nav-buttons>
 
-  <ion-nav-buttons side="right"> 
-    <button class="button button-positive button-clear no-animation"
-      ng-click="next()" ng-if="slideIndex != 2">
-      Next
-    </button>
-    <button class="button button-positive button-clear no-animation"
-      ng-click="startApp()" ng-if="slideIndex == 2">
-      Start using MyApp
-    </button>
-  </ion-nav-buttons>
-
-  <ion-slide-box on-slide-changed="slideChanged(index)">
+  <ion-slide-box pager-click="slide(index)" on-slide-changed="slideChanged(index)" class="main-slide">
     <ion-slide>
-      <h3>Thank you for choosing the Awesome App!</h3>
-      <div id="logo">
-        <img src="images/app_icon.png">
+
+    <div class="card">
+      <div class="item item-text-divider">
+        Daily Deal
       </div>
-      <p>
-        We've worked super hard to make you happy.
-      </p>
-      <p>
-        But if you are angry, too bad.
-      </p>
+
+       <div class="item item-image">
+        <img data-src="holder.js/276x129/random" alt='Thumbnail' holder>
+      </div>
+
+      <div class="item item-text-wrap">
+        This is a basic Card which contains an item that has wrapping text.
+      </div>
+    </div>
+
+     <div class="card">
+      <div class="item item-text-divider">
+        Weeklong Deals
+      </div>
+
+      <ion-slide-box does-continue="true" auto-play="true" show-pager="false">
+
+        <ion-slide>
+          <div class="item item-image">
+            <img data-src="holder.js/200x80/random" alt='Thumbnail' holder>
+          </div>
+        </ion-slide>
+
+         <ion-slide>
+          <div class="item item-image">
+            <img data-src="holder.js/200x80/random" alt='Thumbnail' holder>
+          </div>
+        </ion-slide>
+
+         <ion-slide>
+          <div class="item item-image">
+            <img data-src="holder.js/200x80/random" alt='Thumbnail' holder>
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+
+      <div class="item item-text-wrap">
+        This is a basic Card which contains an item that has wrapping text.
+      </div>
+    </div>
+      
     </ion-slide>
 
     <ion-slide>
-      <h3>Using Awesome</h3>
-      <div id="list">
-        <h5>Just three steps:</h5>
-        <ol>
-          <li>Be awesome</li>
-          <li>Stay awesome</li>
-          <li>There is no step 3</li>
-        </ol>
-      </div>
+      
     </ion-slide>
 
     <ion-slide>
-      <h3>Any questions?</h3>
-      <p>
-        Too bad!
-      </p>
+      <h3>All items on sale</h3>
+      
     </ion-slide>
   </ion-slide-box>
-
 </ion-view>
