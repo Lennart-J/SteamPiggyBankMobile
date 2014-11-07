@@ -1,5 +1,5 @@
 <ion-view title="Special Deals" class="view">
-<ion-nav-bar class="bar-dark" animation="nav-title-slide-ios7">
+  <ion-nav-bar class="bar-dark" animation="nav-title-slide-ios7">
     <button class="button button-icon ion-navicon button-clear" ng-click="toggleLeft()"></button>
     <ion-nav-buttons side="right">
       <button class="button button-clear " id="pig" ng-click="openPopover($event)">
@@ -7,70 +7,66 @@
       </button>
     </ion-nav-buttons>
   </ion-nav-bar>
+
   <ion-side-menus>
-  <ion-side-menu-content>hallo 
-<ion-slide-box pager-click="slide(index)" on-slide-changed="slideChanged(index)" class="main-slide">
-    <ion-slide>
-        <div id="subheader"></div>
-        <div class="card">
-          <div class="item item-divider">
-            Daily Deal
-          </div>
-
-           <div class="item item-image">
-            <img data-src="holder.js/276x129/random" alt='Thumbnail' holder>
-          </div>
-
-          <div class="item item-text-wrap">
-            This is a basic Card which contains an item that has wrapping text.
-          </div>
-        </div>
-
-       <div class="card" ng-controller='GalleryCtrl'>
-        <div class="item item-divider">
-          {{getDealName()}}
-        </div>
-
-        <ion-slide-box does-continue="true" auto-play="true" show-pager="false" on-slide-changed="slideChanged(index)" >
-
-          <ion-slide ng-repeat='item in data'>
-            <div class="item item-image">
-              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{item.id}}/capsule_184x69.jpg"  alt='Thumbnail' holder>
+    <ion-side-menu-content>
+      <ion-slide-box pager-click="slide(index)" on-slide-changed="slideChanged(index)" class="main-slide" delegate-handle="main-slider">
+        <ion-slide id="first-slide">
+          <div id="subheader"></div>
+          <div class="card">
+            <div class="item item-divider">
+              Daily Deal
             </div>
+
+             <div class="item item-image">
+              <img data-src="holder.js/276x129/random" alt='Thumbnail' holder>
+            </div>
+
             <div class="item item-text-wrap">
-              {{item.name}}
-
+              This is a basic Card which contains an item that has wrapping text.
             </div>
-          </ion-slide>
-
-        </ion-slide-box>
-      </div>
-      
-
-      
-    </ion-slide>
-
-    <ion-slide>
-      <div id="subheader"></div>
-      <div class="card" id="appCard" ng-repeat="app in appList">
-        <div class="item item-image">
-          <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.id}}/capsule_184x69.jpg" alt='Thumbnail' holder>
           </div>
-        <div class="item item-text-wrap">
-          {{app.title}}
+
+          <div class="card" ng-controller='GalleryCtrl'>
+            <div class="item item-divider">
+              {{getDealName()}}
+            </div>
+
+            <ion-slide-box does-continue="true" auto-play="true" show-pager="false" on-slide-changed="slideChanged(index)" delegate-handle="gallery-slider">
+              <ion-slide ng-repeat='item in data'>
+                <div class="item item-image" on-touch="onTouch()" on-release="onRelease()">
+                  <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{item.id}}/capsule_184x69.jpg"  alt='Thumbnail' holder>
+                </div>
+                <div class="item item-text-wrap">
+                  {{item.name}}
+                </div>
+              </ion-slide>
+
+            </ion-slide-box>
         </div>
-        <div class="item item-text-wrap">v</div>
-      </div>
-        
-    </ion-slide>
+      </ion-slide>
 
-    <ion-slide>
-    </ion-slide>
+      <ion-slide>
+        <div id="subheader"></div>
+        <ion-scroll zooming="true" direction="y">
+          <div class="card appitem" ng-repeat="app in appList">
+            <div class="item item-divider">
+              {{app.title}}
+            </div>
+            <div class="item item-image">
+              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.id}}/capsule_184x69.jpg" alt='Thumbnail' holder>
+            </div>
+            <div class="item item-text-wrap">v</div>
+          </div>
 
-  </ion-slide-box>
+        </ion-scroll>
+      </ion-slide>
+
+    </ion-slide-box>
   </ion-side-menu-content>
-  <ion-side-menu side="left">HALLO</ion-side-menu>
-</ion-side-menus>
+  
+  <ion-side-menu side="left"></ion-side-menu>
+  </ion-side-menus>
   
   
 

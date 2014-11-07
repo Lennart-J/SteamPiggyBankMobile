@@ -1,12 +1,15 @@
 'use strict';
 angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
 
-.controller('IntroCtrl', function($scope, $ionicSideMenuDelegate, $state, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicPopover, $ionicGesture, $http, $ionicNavBarDelegate) {
+.controller('IntroCtrl', function($scope, $state, $http, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicPopover, $ionicGesture, $ionicNavBarDelegate) {
 	$ionicPopover.fromTemplateUrl('templates/popover.html', {
 		scope: $scope,
 	}).then(function(popover) {
 		$scope.popover = popover;
 	});
+
+	var mainSlider = angular.element(document.querySelector('.slider-slides')),
+		swipeGesture = null;
 
 	// Called to navigate to the main app
 	$scope.startApp = function() {
@@ -24,57 +27,105 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
 
 	$scope.openPopover = function($event) {
 		$http.get('http://store.steampowered.com/search/?specials=1').
-			success(function(data) {
-				$scope.popoverContent = data;
-			});
+		success(function(data) {
+			$scope.popoverContent = data;
+		});
 		$scope.popover.show($event);
-		
+
 	};
 	$scope.closePopover = function() {
-	    $scope.popover.hide();
-		};
+		$scope.popover.hide();
+	};
 
-  $scope.$on('$destroy', function() {
-    $scope.popover.remove();
-  });
-  // Execute action on hide popover
-  $scope.$on('popover.hidden', function() {
-    // Execute action
-  });
-  // Execute action on remove popover
-  $scope.$on('popover.removed', function() {
-    // Execute action
-  });
+	$scope.$on('$destroy', function() {
+		$scope.popover.remove();
+	});
+	// Execute action on hide popover
+	$scope.$on('popover.hidden', function() {
+		// Execute action
+	});
+	// Execute action on remove popover
+	$scope.$on('popover.removed', function() {
+		// Execute action
+	});
+
+	var showSideMenuOnSwipe = function() {
+		$scope.toggleLeft();
+	};
 
 	// Called each time the slide changes
 	$scope.slideChanged = function(index) {
 		$scope.slideIndex = index;
 		if (index === 0) {
 			setNavTitle('Special Deals');
+
 		} else if (index === 1) {
 			setNavTitle('All Current Deals');
+
 		}
+
+
 	};
 
 	var setNavTitle = function(title) {
 		$ionicNavBarDelegate.setTitle(title);
 	};
 
-	$scope.appList = [
-		{'id': 286140, 'title': 'Title1', 'price': 'Price'},
-		{'id': 286140, 'title': 'Title2', 'price': 'Price'},
-		{'id': 286140, 'title': 'Title3', 'price': 'Price'},
-		{'id': 286140, 'title': 'Title4', 'price': 'Price'},
-		{'id': 286140, 'title': 'Title5', 'price': 'Price'},
-		{'id': 286140, 'title': 'Title6', 'price': 'Price'},
-		{'id': 286140, 'title': 'Title7', 'price': 'Price'},
-		{'id': 286140, 'title': 'Title8', 'price': 'Price'}
-	];
+	$scope.appList = [{
+		'id': 286140,
+		'title': 'Title1',
+		'price': 'Price'
+	}, {
+		'id': 286140,
+		'title': 'Title2',
+		'price': 'Price'
+	}, {
+		'id': 286140,
+		'title': 'Title3',
+		'price': 'Price'
+	}, {
+		'id': 286140,
+		'title': 'Title4',
+		'price': 'Price'
+	}, {
+		'id': 286140,
+		'title': 'Title5',
+		'price': 'Price'
+	}, {
+		'id': 286140,
+		'title': 'Title6',
+		'price': 'Price'
+	}, {
+		'id': 286140,
+		'title': 'Title7',
+		'price': 'Price'
+	}, {
+		'id': 286140,
+		'title': 'Title8',
+		'price': 'Price'
+	}];
 
 	$scope.toggleLeft = function() {
-    	$ionicSideMenuDelegate.toggleLeft();
-  	};
-	
+		$ionicSideMenuDelegate.toggleLeft();
+	};
+
+	$scope.$watch($ionicSideMenuDelegate.isOpenLeft, function(bool) {
+		if (bool) {
+			$ionicSlideBoxDelegate.$getByHandle('main-slider').enableSlide(false);
+			$ionicSlideBoxDelegate.$getByHandle('gallery-slider').enableSlide(false);
+		} else {
+			$ionicSlideBoxDelegate.$getByHandle('main-slider').enableSlide(true);
+			$ionicSlideBoxDelegate.$getByHandle('gallery-slider').enableSlide(true);
+		}
+	});
+
+	$scope.$watch($ionicSlideBoxDelegate.currentIndex, function(index) {
+		if (index === 0) {
+			swipeGesture = $ionicGesture.on('swiperight', showSideMenuOnSwipe, mainSlider);
+		} else {
+			$ionicGesture.off(swipeGesture, 'swiperight', showSideMenuOnSwipe);
+		}
+	});
 
 })
 
@@ -99,30 +150,44 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
 	$scope.slideChanged = function(index) {
 		$scope.slideIndex = index;
 	};
-	$scope.data =[
-			{'id': 286140, 'name': 'randomShit0'},
-			{'id': 286140, 'name': 'randomShit1'},
-			{'id': 286140, 'name': 'randomShit2'}
-		];
+	$scope.onTouch = function() {
+		$ionicSlideBoxDelegate.$getByHandle('main-slider').enableSlide(false);
+	};
+	$scope.onRelease = function() {
+		$ionicSlideBoxDelegate.$getByHandle('main-slider').enableSlide(true);
+	};
+	$scope.data = [{
+		'id': 286140,
+		'name': 'randomShit0'
+	}, {
+		'id': 286140,
+		'name': 'randomShit1'
+	}, {
+		'id': 286140,
+		'name': 'randomShit2'
+	}];
 
-	$scope.getDealName = function(){
-		var weekday = "Hallo";
+	$scope.getDealName = function() {
+		var weekday = 'Hallo';
 		return weekday;
 		/*if (weekday.toString() === 'Sunday' || 'Saturday' || 'Friday') {
 			return 'Weekend Deals';
 		} else {
 			return 'Weeklong Deals';
 		}*/
-	};	
+	};
 })
 
 .controller('PigCtrl', function($scope) {
-	$scope.pigs = [
-		{'src': '../images/loadingPigStay.png'},
-		{'src': '../images/loadingPigMid.png'},
-		{'src':'../images/loadingPigJump.png'},
-		{'src':'../images/loadingPigMid.png'}
-	];
+	$scope.pigs = [{
+		'src': '../images/loadingPigStay.png'
+	}, {
+		'src': '../images/loadingPigMid.png'
+	}, {
+		'src': '../images/loadingPigJump.png'
+	}, {
+		'src': '../images/loadingPigMid.png'
+	}];
 
 
 
