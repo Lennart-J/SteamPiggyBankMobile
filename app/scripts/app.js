@@ -2,7 +2,7 @@
 // Ionic Starter App
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
-angular.module('SteamPiggyBank', ['ionic', 'config', 'SteamPiggyBank.directives', 'SteamPiggyBank.controllers'])
+angular.module('SteamPiggyBank', ['ionic', 'config', 'SteamPiggyBank.directives', 'SteamPiggyBank.controllers', 'SteamPiggyBank.services'])
 
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {

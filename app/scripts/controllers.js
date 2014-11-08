@@ -1,7 +1,7 @@
 'use strict';
 angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
 
-.controller('IntroCtrl', function($scope, $state, $http, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicPopover, $ionicGesture, $ionicNavBarDelegate) {
+.controller('IntroCtrl', function($scope, requestService, $state, $http, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicPopover, $ionicGesture, $ionicNavBarDelegate) {
 	$ionicPopover.fromTemplateUrl('templates/popover.html', {
 		scope: $scope,
 	}).then(function(popover) {
@@ -26,12 +26,8 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
 	};
 
 	$scope.openPopover = function($event) {
-		$http.get('http://store.steampowered.com/search/?specials=1').
-		success(function(data) {
-			$scope.popoverContent = data;
-		});
+		$scope.popoverContent = requestService.getAllApps();
 		$scope.popover.show($event);
-
 	};
 	$scope.closePopover = function() {
 		$scope.popover.hide();
@@ -63,8 +59,6 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
 			setNavTitle('All Current Deals');
 
 		}
-
-
 	};
 
 	var setNavTitle = function(title) {

@@ -12,4 +12,3 @@ angular.module('SteamPiggyBank.directives', [])
 	};
 });
 
-//directive für slide text?!
