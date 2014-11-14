@@ -48,18 +48,34 @@
 
       <ion-slide>
         <div id="subheader"></div>
-        <ion-scroll zooming="true" direction="y">
-          <div class="card appitem" ng-repeat="app in appList">
+        <ion-content>
+          <div class="card appitem" ng-repeat="app in appItems">
             <div class="item item-divider">
-              {{app.title}}
+              {{app.name}}
             </div>
             <div class="item item-image">
-              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.id}}/capsule_184x69.jpg" alt='Thumbnail' holder>
+              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" holder>
+            </div>
+            <div class="item item-text-wrap">
+            <span>{{app.discount}}</span>
+            <span><strike>{{app.oldprice}}</strike></span>
+            <span>{{app.newprice}}</span>
+            </div>
+          </div>
+          <!-- <div class="card appitem" 
+            collection-repeat="app in appItems"
+            collection-item-width="'100%'"
+            collection-item-height="'60px'">
+            <div class="item item-divider">
+              {{app.name}}
+            </div>
+            <div class="item item-image">
+              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" holder>
             </div>
             <div class="item item-text-wrap">v</div>
-          </div>
+          </div> -->
 
-        </ion-scroll>
+        </ion-content>
       </ion-slide>
 
     </ion-slide-box>

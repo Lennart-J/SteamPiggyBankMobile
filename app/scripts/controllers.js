@@ -1,13 +1,21 @@
 'use strict';
 angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
 
-.controller('IntroCtrl', function($scope, requestService, $state, $http, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicPopover, $ionicGesture, $ionicNavBarDelegate) {
+.controller('IntroCtrl', function($scope, requestService, $state, $http, $q, $ionicSideMenuDelegate, $ionicBackdrop, $ionicSlideBoxDelegate, $ionicPopover, $ionicGesture, $ionicNavBarDelegate) {
 	$ionicPopover.fromTemplateUrl('templates/popover.html', {
 		scope: $scope,
 	}).then(function(popover) {
 		$scope.popover = popover;
 	});
-
+	var promise = requestService.getAllApps();
+	promise.then(function(data) {
+		console.log(data);
+	}, function(reason) {
+		console.log(reason);
+	}, function(update) {
+		console.log(update);
+		$scope.appItems = update;
+	});
 	var mainSlider = angular.element(document.querySelector('.slider-slides')),
 		swipeGesture = null;
 
@@ -16,17 +24,26 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
 		$state.go('main');
 	};
 	$scope.next = function() {
-		$ionicSlideBoxDelegate.next();
+		$ionicSlideBoxDelegate.select( $ionicSlideBoxDelegate.next() );
 	};
 	$scope.previous = function() {
-		$ionicSlideBoxDelegate.previous();
+		$ionicSlideBoxDelegate.select( $ionicSlideBoxDelegate.previous() );
 	};
 	$scope.slide = function(index) {
-		$ionicSlideBoxDelegate.slide(index);
+		$ionicSlideBoxDelegate.select(index);
 	};
 
 	$scope.openPopover = function($event) {
-		$scope.popoverContent = requestService.getAllApps();
+		var promise = requestService.getAllApps();
+		promise.then(function(data) {
+			console.log(data);
+		}, function(reason) {
+			console.log(reason);
+		}, function(update) {
+			console.log(update);
+			$scope.popoverContent = update;
+			console.log($scope.popoverContent.length);
+		});
 		$scope.popover.show($event);
 	};
 	$scope.closePopover = function() {
@@ -113,14 +130,14 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
 		}
 	});
 
-	$scope.$watch($ionicSlideBoxDelegate.currentIndex, function(index) {
+	$scope.$watch($ionicSlideBoxDelegate.selected, function(index) {
+
 		if (index === 0) {
 			swipeGesture = $ionicGesture.on('swiperight', showSideMenuOnSwipe, mainSlider);
-		} else {
+		} else if (swipeGesture !== null) {
 			$ionicGesture.off(swipeGesture, 'swiperight', showSideMenuOnSwipe);
 		}
 	});
-
 })
 
 .controller('MainCtrl', function($scope, $state) {
@@ -152,13 +169,13 @@ angular.module('SteamPiggyBank.controllers', ['ngAnimate'])
 	};
 	$scope.data = [{
 		'id': 286140,
-		'name': 'randomShit0'
+		'name': 'Test_0'
 	}, {
 		'id': 286140,
-		'name': 'randomShit1'
+		'name': 'Test_1'
 	}, {
 		'id': 286140,
-		'name': 'randomShit2'
+		'name': 'Test_2'
 	}];
 
 	$scope.getDealName = function() {

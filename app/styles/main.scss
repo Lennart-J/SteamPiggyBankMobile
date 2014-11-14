@@ -1,5 +1,6 @@
 .main-slide {
-  background-color: #455A64;
+  background-color: #417a9b;
+
   &.slider {
     height: 100%;
 
@@ -31,10 +32,13 @@
     .item-text-wrap {
       padding: 4px 2px;
     }
+    img {
+      height: 56px;
+    }
  }
 
  #placeholder {
-   height: 40 px;
+   height: 40px;
  }
 
 #logo {
