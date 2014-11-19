@@ -1,4 +1,4 @@
-<ion-view title="Special Deals" class="view">
+<ion-view title="Special Deals" class="view" ng-cloak>
   <ion-nav-bar class="bar-dark" animation="nav-title-slide-ios7">
     <button class="button button-icon ion-navicon button-clear" ng-click="toggleLeft()"></button>
     <ion-nav-buttons side="right">
@@ -10,35 +10,39 @@
 
   <ion-side-menus>
     <ion-side-menu-content>
-      <ion-slide-box pager-click="slide(index)" on-slide-changed="slideChanged(index)" class="main-slide" delegate-handle="main-slider">
-        <ion-slide id="first-slide">
+      <ion-slide-box on-slide-changed="slideChanged(index)" class="main-slider" delegate-handle="main-slider">
+        <ion-slide>
           <div id="subheader"></div>
-          <div class="card">
+          <div class="card dailydeal">
             <div class="item item-divider">
               Daily Deal
             </div>
 
              <div class="item item-image">
-              <img data-src="holder.js/276x129/random" alt='Thumbnail' holder>
+             <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{dailyDeal.appid}}/header.jpg">
             </div>
 
             <div class="item item-text-wrap">
-              This is a basic Card which contains an item that has wrapping text.
+              <div class="row">
+              <div class="col discount">{{dailyDeal.discount}}</div>
+              
+              <div class="col col-50"><strike>{{dailyDeal.originalprice}}</strike><br>{{dailyDeal.finalprice}}</div>
+            </div>
             </div>
           </div>
 
-          <div class="card" ng-controller='GalleryCtrl'>
+          <div class="card specialdeals" ng-controller='GalleryCtrl'>
             <div class="item item-divider">
               {{getDealName()}}
             </div>
 
-            <ion-slide-box does-continue="true" auto-play="true" show-pager="false" on-slide-changed="slideChanged(index)" delegate-handle="gallery-slider">
-              <ion-slide ng-repeat='item in data'>
+            <ion-slide-box does-continue="true" auto-play="true" on-slide-changed="slideChanged(index)" show-pager="false" class="gallery-slider"delegate-handle="gallery-slider">
+              <ion-slide ng-repeat='app in featuredDeals'>
                 <div class="item item-image" on-touch="onTouch()" on-release="onRelease()">
-                  <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{item.id}}/capsule_184x69.jpg"  alt='Thumbnail' holder>
+                  <img ng-src="{{app.imageUrl}}"  alt='Thumbnail' holder>
                 </div>
                 <div class="item item-text-wrap">
-                  {{item.name}}
+                  {{app.name}}
                 </div>
               </ion-slide>
 
@@ -49,17 +53,19 @@
       <ion-slide>
         <div id="subheader"></div>
         <ion-content>
-          <div class="card appitem" ng-repeat="app in appItems">
+          <div class="card listitem" ng-repeat="app in appItems">
             <div class="item item-divider">
               {{app.name}}
             </div>
             <div class="item item-image">
-              <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" holder>
+              <img ng-src="{{app.imageUrl}}" holder>
             </div>
             <div class="item item-text-wrap">
-            <span>{{app.discount}}</span>
-            <span><strike>{{app.oldprice}}</strike></span>
-            <span>{{app.newprice}}</span>
+            <div class="row">
+              <div class="col discount">{{app.discount}}</div>
+              <div class="col col-67"><strike>{{app.originalprice}}</strike><br>{{app.finalprice}}</div>
+            </div>
+            
             </div>
           </div>
           <!-- <div class="card appitem" 
@@ -72,9 +78,12 @@
             <div class="item item-image">
               <img ng-src="http://cdn.akamai.steamstatic.com/steam/apps/{{app.appid}}/capsule_184x69.jpg" holder>
             </div>
-            <div class="item item-text-wrap">v</div>
+            <div class="item item-text-wrap">
+            <div class="row">
+              <div class="col discount">{{app.discount}}</div>
+              <div class="col col-67"><strike>{{app.originalprice}}</strike><br>{{app.finalprice}}</div>
+            </div>
           </div> -->
-
         </ion-content>
       </ion-slide>
 

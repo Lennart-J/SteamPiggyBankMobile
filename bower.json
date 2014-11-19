@@ -2,12 +2,18 @@
   "name": "SteamPiggyBank",
   "version": "0.0.0",
   "dependencies": {
-    "ionic": "nightly 1.0.0-beta.13-nightly-667",
+    "ionic": "1.0.0-beta.13",
     "holderjs": "~2.4.1",
     "jquery-2.1.1.min": "http://code.jquery.com/jquery-2.1.1.min.js"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.17",
     "angular-scenario": "~1.2.17"
+  },
+  "resolutions": {
+    "angular": "~1.2.17",
+    "angular-ui-router": "0.2.10",
+    "angular-animate": "~1.2.17",
+    "angular-sanitize": "~1.2.17"
   }
 }
